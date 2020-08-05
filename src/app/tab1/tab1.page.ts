@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
-
-  constructor() {}
-
+export class Tab1Page implements OnInit {
+  ngOnInit(): void {
+    // Para hacer un debug del codigo agregar
+    // debugger;
+    console.log('ngOnInit tab1');
+  }
 }
