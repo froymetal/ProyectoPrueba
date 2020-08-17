@@ -1,12 +1,48 @@
-import { Component } from '@angular/core';
+// song.page.ts
+
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { DbService } from './../services/db.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tab2',
+  selector: 'app-song',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
+  editForm: FormGroup;
+  id: any;
 
-  constructor() {}
+  constructor(
+    private db: DbService,
+    private router: Router,
+    public formBuilder: FormBuilder,
+    private actRoute: ActivatedRoute
+  ) {
+    this.id = this.actRoute.snapshot.paramMap.get('id');
+
+    this.db.getSong(this.id).then(res => {
+      this.editForm.setValue({
+        artist_name: res['artist_name'],
+        song_name: res['song_name']
+      })
+    })
+  }
+
+  ngOnInit() {
+    this.editForm = this.formBuilder.group({
+      artist_name: [''],
+      song_name: ['']
+    })
+  }
+
+  saveForm(){
+    this.db.updateSong(this.id, this.editForm.value)
+    .then( (res) => {
+      console.log(res)
+      this.router.navigate(['../tab1/tab1.page.html']);
+    })
+  }
 
 }
