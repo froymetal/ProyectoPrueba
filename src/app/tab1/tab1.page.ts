@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataLocalService } from '../services/data-local.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(private dataLocalService: DataLocalService) { }
+  
+  guardar() {
+    this.dataLocalService.guardarInfo('prueba2');
+  }
+
+
 
 }
