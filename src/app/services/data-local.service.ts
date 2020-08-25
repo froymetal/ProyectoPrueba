@@ -8,18 +8,23 @@ import { async } from '@angular/core/testing';
 })
 export class DataLocalService {
 
-  infoarr: Array<string>[] = [];
+  infoarr: any[] = [];
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage) {
+    this.cargarInfo();
+  }
   
   guardarInfo(informacion) {
     // debugger
     this.infoarr.unshift(informacion);
-    this.storage.set('info', informacion);
+    this.storage.set('info', this.infoarr);
   }
 
   async cargarInfo() {
     const informacion = await this.storage.get('info');
-    this.infoarr = informacion;
+    if (informacion) {
+      this.infoarr = informacion;
+    }
+    console.log(informacion);
   }
 }

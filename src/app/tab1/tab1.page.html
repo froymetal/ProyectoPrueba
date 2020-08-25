@@ -7,14 +7,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-        <ion-toolbar>
-            <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-    </ion-header>
+    <form #formulario="ngForm" (ngSubmit)="onSubmit()">
+        <ion-list-header>
+            <ion-label>Formulario valido {{ formulario.valid }} </ion-label>
+        </ion-list-header>
+        <ion-list>
+            <ion-item>
+                <ion-label position="floating">Nombre:</ion-label>
+                <ion-input type="text" name="nombre" [(ngModel)]="usuario.nombre" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Email:</ion-label>
+                <ion-input type="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" [(ngModel)]="usuario.email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Password:</ion-label>
+                <ion-input type="password" name="password" [(ngModel)]="usuario.password"></ion-input>
+            </ion-item>
+        </ion-list>
+    </form>
+    <!-- Para llamar a la funcion guardar en el botón (click)="guardar()" -->
+    <ion-button type="submit" expand="full" color="secondary" round [disabled]="formulario.invalid">
+        No sirve este boton
+    </ion-button>
 
-    <ion-button color="secondary" round (click)="guardar()">
-        prueba
+    <ion-button (click)="guardar()" expand="full" shape="round" [disabled]="formulario.invalid">
+        Guarda información
     </ion-button>
 
 </ion-content>

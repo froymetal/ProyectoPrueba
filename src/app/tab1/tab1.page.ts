@@ -7,13 +7,24 @@ import { DataLocalService } from '../services/data-local.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  
+  usuario = {
+    nombre: '',
+    email: '',
+    password: ''
+  };
 
   constructor(private dataLocalService: DataLocalService) { }
   
   guardar() {
-    this.dataLocalService.guardarInfo('prueba2');
+    // debugger
+    console.log(this.usuario);
+    this.dataLocalService.guardarInfo(this.usuario);
   }
 
-
+  onSubmit() {
+    debugger
+    console.log(this.usuario);
+  }
 
 }
